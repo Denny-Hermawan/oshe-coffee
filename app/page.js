@@ -149,7 +149,7 @@ export default function OsheCoffee() {
               <div className="w-20 h-1 bg-amber-600 mb-8"></div>
               <p className="text-lg text-neutral-400 mb-6 leading-relaxed">
                 Founded in the heart of Indonesia, Oshe Coffee is more than just a café. 
-                We're a community of coffee enthusiasts dedicated to bringing you the finest 
+                We are a community of coffee enthusiasts dedicated to bringing you the finest 
                 beans from across the archipelago.
               </p>
               <p className="text-lg text-neutral-400 mb-8 leading-relaxed">
@@ -244,7 +244,7 @@ export default function OsheCoffee() {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">Visit Us</h2>
             <div className="w-20 h-1 bg-amber-600 mx-auto mb-6"></div>
-            <p className="text-xl text-neutral-400">We'd love to serve you</p>
+            <p className="text-xl text-neutral-400">We would love to serve you</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
@@ -294,7 +294,7 @@ export default function OsheCoffee() {
 
             <div className="bg-neutral-900/50 backdrop-blur border border-neutral-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
-              <form className="space-y-4">
+              <div className="space-y-4">
                 <input
                   type="text"
                   placeholder="Your Name"
@@ -307,16 +307,19 @@ export default function OsheCoffee() {
                 />
                 <textarea
                   placeholder="Your Message"
-                  rows="4"
+                  rows={4}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-600 transition-colors resize-none"
                 ></textarea>
                 <button
-                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert('Message sent! (Demo only)');
+                  }}
                   className="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-lg font-medium transition-colors"
                 >
                   Send Message
                 </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
