@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+// <-- PERBAIKAN: Mengimpor komponen Image dari Next.js
+import Image from 'next/image';
 import { Menu, X, Coffee, MapPin, Phone, Mail, Instagram, Facebook, ChevronDown } from 'lucide-react';
 
 // Custom Spiral Icon Component
@@ -17,13 +19,12 @@ export default function OsheCoffee() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [isMenuModalOpen, setIsMenuModalOpen] = useState(false); // <-- State baru untuk modal
+  const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
   
   const [animatedText, setAnimatedText] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   
-
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -56,7 +57,8 @@ export default function OsheCoffee() {
     const typingSpeed = isDeleting ? 100 : 150;
     const typingTimeout = setTimeout(handleTyping, typingSpeed);
     return () => clearTimeout(typingTimeout);
-  }, [animatedText, isDeleting, wordIndex, isLoading, wordsToAnimate]);
+  // <-- PERBAIKAN: Menghapus 'wordsToAnimate' dari dependency array karena nilainya konstan
+  }, [animatedText, isDeleting, wordIndex, isLoading]);
 
 
   const scrollToSection = (id) => {
@@ -88,7 +90,8 @@ export default function OsheCoffee() {
     <div style={{ backgroundColor: colors.white, color: colors.darkGreen }} className="min-h-screen overflow-x-hidden">
       {isLoading && (
         <div className="fixed inset-0 z-[999] flex items-center justify-center" style={{ backgroundColor: colors.blue }}>
-          <img src="/images/logo-oshe.png" alt="Loading Oshe Coffee" className="h-28 brightness-0 invert animate-bounce-logo" />
+          {/* <-- PERBAIKAN: Mengganti <img> dengan <Image> dan menambahkan width/height */}
+          <Image src="/images/logo-oshe.png" alt="Loading Oshe Coffee" width={112} height={112} className="h-28 w-auto brightness-0 invert animate-bounce-logo" />
         </div>
       )}
 
@@ -98,7 +101,8 @@ export default function OsheCoffee() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-20">
                 <div className="flex items-center gap-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
-                  <img src="/images/logo-oshe.png" alt="Oshe Coffee" className={`h-12 w-auto transition-all duration-300 ${navHasBg ? 'brightness-0 invert' : ''}`} />
+                  {/* <-- PERBAIKAN: Mengganti <img> dengan <Image> dan menambahkan width/height */}
+                  <Image src="/images/logo-oshe.png" alt="Oshe Coffee" width={48} height={48} className={`h-12 w-auto transition-all duration-300 ${navHasBg ? 'brightness-0 invert' : ''}`} />
                 </div>
                 <div className="hidden md:flex items-center gap-1">
                   {['Home', 'Story', 'Menu', 'Gallery', 'Contact'].map((item) => (
@@ -125,7 +129,6 @@ export default function OsheCoffee() {
             )}
           </nav>
 
-          {/* Hero & Intro Section */}
           <section id="home" className="pt-20">
             <div className="relative w-full h-[60vh] md:h-[70vh] bg-cover bg-center flex flex-col items-center justify-center text-white text-center animate-fade-in-up px-4" style={{ backgroundImage: "url('/images/suasana-oshe.jpg')" }}>
                <div className="absolute inset-0 bg-black/40"></div>
@@ -140,11 +143,11 @@ export default function OsheCoffee() {
                </div>
             </div>
 
-            {/* Intro Content */}
             <div className="max-w-3xl mx-auto text-center py-16 px-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               <h2 className="font-bristol text-4xl md:text-5xl mb-6" style={{color: colors.darkGreen}}>O-she you there!</h2>
               <p className="font-itc-cheltenham text-xl md:text-2xl leading-relaxed mb-8" style={{color: colors.darkGreen}}>
-                we are born to connect people, share stories, and spark ideas. Ain't just to serve the coffee, but a warm and creative space to belong.
+                {/* <-- PERBAIKAN: Mengganti "Ain't" dengan "Ain&apos;t" */}
+                we are born to connect people, share stories, and spark ideas. Ain&apos;t just to serve the coffee, but a warm and creative space to belong.
               </p>
               <h3 className="font-bristol text-3xl md:text-4xl" style={{color: colors.darkGreen}}>come and have more experience!</h3>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
@@ -160,7 +163,9 @@ export default function OsheCoffee() {
             </div>
           </section>
 
-          {/* Story Section */}
+          {/* ... Sisa kode Anda (tidak ada perubahan signifikan yang diperlukan di bawah ini) ... */}
+          {/* Story, Menu, Gallery, Contact Sections etc. */}
+
           <section id="story" className="relative py-16 px-4 bg-gray-50">
             <div className="max-w-7xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -206,7 +211,6 @@ export default function OsheCoffee() {
             </div>
           </section>
           
-          {/* Menu Section */}
           <section id="menu" className="relative py-16 px-4 bg-white">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16 animate-fade-in-up">
@@ -264,7 +268,7 @@ export default function OsheCoffee() {
                           Tersedia lebih banyak pilihan untuk menemani harimu.
                         </p>
                         <button 
-                          onClick={() => setIsMenuModalOpen(true)} // <-- Tombol ini sekarang membuka modal
+                          onClick={() => setIsMenuModalOpen(true)}
                           className="px-6 py-3 font-bold text-base transition-all hover:scale-105 shadow-lg rounded-xl" 
                           style={{ backgroundColor: colors.blue, color: colors.white }}
                         >
@@ -277,7 +281,6 @@ export default function OsheCoffee() {
             </div>
           </section>
 
-          {/* Gallery Section */}
           <section id="gallery" className="relative py-16 px-4 bg-gray-50">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16 animate-fade-in-up">
@@ -296,7 +299,6 @@ export default function OsheCoffee() {
             </div>
           </section>
           
-          {/* Contact Section */}
           <section id="contact" className="relative py-16 px-4 bg-white">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16 animate-fade-in-up">
@@ -336,7 +338,8 @@ export default function OsheCoffee() {
           <footer className="py-16 px-4" style={{ backgroundColor: colors.darkGreen }}>
             <div className="max-w-6xl mx-auto text-center">
               <div className="flex items-center justify-center gap-3 mb-6">
-                <img src="/images/logo-oshe.png" alt="Oshe Coffee" className="h-14 w-auto brightness-0 invert" />
+                {/* <-- PERBAIKAN: Mengganti <img> dengan <Image> dan menambahkan width/height */}
+                <Image src="/images/logo-oshe.png" alt="Oshe Coffee" width={56} height={56} className="h-14 w-auto brightness-0 invert" />
               </div>
               <p className="font-medium" style={{ color: colors.white }}>© 2025 Oshe Coffee. Brewing moments that matter.</p>
             </div>
@@ -344,7 +347,6 @@ export default function OsheCoffee() {
         </>
       )}
 
-      {/* MODAL MENU PDF -- KODE BARU */}
       {isMenuModalOpen && (
         <div 
           className="fixed inset-0 z-[999] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"
@@ -359,9 +361,8 @@ export default function OsheCoffee() {
           
           <div 
             className="relative w-[90vw] h-[60vw] max-w-[1200px] max-h-[750px] bg-gray-900 rounded-3xl border-8 border-gray-700 p-4 shadow-2xl animate-zoom-in"
-            onClick={(e) => e.stopPropagation()} // Mencegah modal tertutup saat klik di dalam iPad
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Bezel samping dengan 'kamera' */}
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-2 h-16 bg-gray-700 rounded-r-md">
               <div className="absolute top-1/2 -translate-y-1/2 left-1 w-2 h-2 bg-gray-800 rounded-full"></div>
             </div>
@@ -390,7 +391,7 @@ export default function OsheCoffee() {
         @keyframes fade-in-left { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes fade-in-right { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
         
-        /* Modal Animations -- ANIMASI BARU */
+        /* Modal Animations */
         @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
         @keyframes zoom-in { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
         .animate-fade-in { animation: fade-in 0.3s ease-out forwards; }
