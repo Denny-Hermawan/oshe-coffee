@@ -10,6 +10,8 @@ const SpiralIcon = ({ className }) => (
   </svg>
 );
 
+const wordsToAnimate = ['Moments', 'Stories', 'Creativity', 'Connections'];
+
 export default function OsheCoffee() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,7 +22,7 @@ export default function OsheCoffee() {
   const [animatedText, setAnimatedText] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const wordsToAnimate = ['Moments', 'Stories', 'Creativity', 'Connections'];
+  
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
