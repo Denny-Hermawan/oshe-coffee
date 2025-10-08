@@ -252,8 +252,9 @@ export default function OsheCoffee() {
                   <h1 className="font-finder font-bold text-5xl lg:text-7xl tracking-tight leading-tight mb-6" style={{color: colors.darkGreen}}>
                     O-she you there!
                   </h1>
+                  // INI SOLUSINYA
                   <p className="text-base md:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0" style={{color: colors.darkGreen}}>
-                    We are born to connect people, share stories, and spark ideas. It ain't just about serving coffee, but creating a warm and creative space to belong.
+                    We are born to connect people, share stories, and spark ideas. It ain&apos;t just about serving coffee, but creating a warm and creative space to belong.
                   </p>
                   <h3 className="font-finder font-semibold text-xl md:text-2xl tracking-tight" style={{color: colors.darkGreen}}>Come and have an experience!</h3>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-12">
