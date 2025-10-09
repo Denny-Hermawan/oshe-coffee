@@ -53,9 +53,12 @@ export default function OsheCoffee() {
     link: 'https://www.instagram.com/oshecoffee'
   };
 
+  const colors = { blue: '#021de9', darkGreen: '#134534', white: '#fbfbfb', gray: '#f9fafb' };
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
+    // Durasi loading 8 detik
+    const timer = setTimeout(() => setIsLoading(false), 7600); 
+    
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     
@@ -75,7 +78,7 @@ export default function OsheCoffee() {
       clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isLoading, activePopup]); // Tambahkan isLoading dan activePopup sebagai dependency
+  }, [isLoading, activePopup]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -138,8 +141,6 @@ export default function OsheCoffee() {
     { src: '/images/diluar.jpg', alt: 'Event at Oshe Coffee' },
   ];
 
-  const colors = { blue: '#021de9', darkGreen: '#134534', white: '#fbfbfb', gray: '#f9fafb' };
-
   const handleReservationClick = () => {
     const phoneNumber = "6282154656855";
     const message = "Hello, I would like to make a reservation at Oshe Coffee.";
@@ -179,9 +180,23 @@ export default function OsheCoffee() {
 
   return (
     <div style={{ backgroundColor: colors.white, color: colors.darkGreen }} className="min-h-screen overflow-x-hidden">
+      
+      {/* ================================================================== */}
+      {/* PERUBAHAN FINAL ADA DI SINI (BACKGROUND BIRU SOLID)              */}
+      {/* ================================================================== */}
       {isLoading && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center" style={{ backgroundColor: colors.blue }}>
-          <Image src="/images/logo-oshe.png" alt="Loading Oshe Coffee" width={112} height={112} className="h-28 w-auto brightness-0 invert animate-bounce-logo" />
+        <div 
+          className="fixed inset-0 z-[999] flex items-center justify-center"
+          style={{ backgroundColor: colors.blue }}
+        >
+          <video
+            src="/videos/loading.mov"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-35 w-35 object-contain"
+          />
         </div>
       )}
 
@@ -192,23 +207,23 @@ export default function OsheCoffee() {
                <div className={`flex items-center justify-between h-16 transition-all duration-500 ease-in-out ${isScrolled ? 'bg-blue-600 rounded-full shadow-2xl px-6' : 'bg-transparent'}`}
                 style={{ backgroundColor: isScrolled ? colors.blue : (isMobileMenuOpen ? colors.blue : 'transparent') }}>
                  <div className="flex items-center gap-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
-                   <Image src="/images/logo-oshe.png" alt="Oshe Coffee" width={48} height={48} className={`h-12 w-auto transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'brightness-0 invert' : ''}`} />
+                   <Image src="/images/logo-oshe.png" alt="Oshe Coffee" width={48} height={48} className="h-12 w-auto transition-all duration-300 brightness-0 invert" />
                  </div>
                  <div className="hidden md:flex items-center gap-1">
                    {['Home', 'Story', 'Menu', 'Gallery', 'Contact'].map((item) => (
-                     <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className={`px-4 py-2 text-lg font-medium transition-colors hover:bg-black/10 rounded-lg ${isScrolled ? 'text-white' : 'text-darkGreen'}`}
-                      style={{ color: isScrolled ? colors.white : colors.darkGreen }}>
-                       {item}
-                     </button>
+                     <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className="px-4 py-2 text-lg font-medium text-white transition-colors hover:bg-black/10 rounded-lg"
+                      style={{ color: colors.white }}>
+                      {item}
+                    </button>
                    ))}
                  </div>
                   <div className="hidden md:flex items-center gap-2">
                      <button onClick={handleReservationClick} className="px-5 py-2 text-lg font-medium bg-white/20 text-white rounded-full transition-all hover:bg-white/30">Reservation</button>
                      <button onClick={handleGojekClick} className="px-5 py-2 text-lg font-medium bg-green-500 text-white rounded-full transition-all hover:bg-green-600">GoFood</button>
                   </div>
-                 <button className="md:hidden p-2 rounded-lg" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} style={{ color: isScrolled || isMobileMenuOpen ? colors.white : colors.darkGreen }}>
-                   {isMobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
-                 </button>
+                 <button className="md:hidden p-2 rounded-lg" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} style={{ color: colors.white }}>
+                  {isMobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+                </button>
                </div>
              </div>
              {isMobileMenuOpen && (
@@ -245,37 +260,46 @@ export default function OsheCoffee() {
              )}
            </nav>
 
-          <section id="home" className="min-h-screen flex items-center pt-28 pb-12 lg:pt-20">
-            <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 w-full">
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div className="text-center lg:text-left animate-fade-in-left">
-                  <h1 className="font-finder font-bold text-5xl lg:text-7xl tracking-tight leading-tight mb-6" style={{color: colors.darkGreen}}>
-                    O-she you there!
-                  </h1>
-                  <p className="text-base md:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0" style={{color: colors.darkGreen}}>
-                    We are born to connect people, share stories, and spark ideas. It ain&apos;t just about serving coffee, but creating a warm and creative space to belong.
-                  </p>
-                  <h3 className="font-finder font-semibold text-xl md:text-2xl tracking-tight" style={{color: colors.darkGreen}}>Come and have an experience!</h3>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-12">
-                    <button onClick={() => scrollToSection('menu')} className="flex items-center justify-center gap-3 px-8 py-4 text-white font-bold text-base rounded-xl transition-all duration-300 hover:scale-105 shadow-lg" style={{ backgroundColor: colors.blue }}>
-                      <BookOpen className="w-6 h-6"/>
-                      Explore Menu
-                    </button>
-                    <button onClick={() => scrollToSection('story')} className="flex items-center justify-center gap-3 px-8 py-4 font-bold text-base rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100 border-2" style={{ borderColor: colors.darkGreen, color: colors.darkGreen }}>
-                       <MessageSquareText className="w-6 h-6"/>
-                       Our Story
-                    </button>
-                  </div>
-                </div>
-                <div className="relative animate-fade-in-right mt-12 lg:mt-0">
-                  <div className="aspect-square relative rounded-3xl overflow-hidden shadow-2xl">
-                    {heroImages.map((image, index) => (
-                      <Image key={image.src} src={image.src} alt={image.alt} layout="fill" objectFit="cover" priority={index === 0}
-                        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`} />
-                    ))}
-                  </div>
-                </div>
+          <section id="home" className="relative min-h-screen flex flex-col justify-center items-center text-center text-white overflow-hidden">
+            {/* 1. Gambar Latar Belakang dan Overlay Gelap */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/kursi.jpg" // GANTI DENGAN GAMBAR LATAR ANDA
+                alt="Oshe Coffee Ambiance"
+                layout="fill"
+                objectFit="cover"
+                priority
+              />
+              {/* Overlay untuk membuat teks lebih mudah dibaca */}
+              <div className="absolute inset-0 bg-black/40"></div>
+            </div>
+
+            {/* 2. Konten Teks di Tengah */}
+            <div className="relative z-10 p-6 animate-fade-in-up">
+              {/* Ganti dengan logo atau teks utama Anda */}
+              <h1 className="font-finder font-bold text-6xl md:text-8xl lg:text-9xl tracking-tight leading-tight mb-8">
+                Dive Into The Oshe-an
+              </h1>
+              {/* Anda bisa menambahkan elemen lain seperti di contoh */}
+              <div className="flex justify-center items-center gap-12 text-lg">
+                <p>COFFEE</p>
+                <span className="text-4xl">*</span>
+                <p>CULTURE</p>
               </div>
+            </div>
+
+            {/* 3. Indikator Scroll Down (Opsional) */}
+            <div className="absolute bottom-10 z-10 animate-bounce">
+              <ChevronDown size={40} />
+            </div>
+
+            {/* 4. Pembatas Melengkung di Bawah */}
+            <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none" style={{ zIndex: 10, transform: 'scaleY(-1)' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-[calc(100%+1.3px)] h-[75px]">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                  style={{ fill: colors.white }} // Warna harus sama dengan background section berikutnya
+                ></path>
+              </svg>
             </div>
           </section>
 
@@ -284,7 +308,7 @@ export default function OsheCoffee() {
             <div className="max-w-7xl mx-auto pt-12">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
                 <div className="space-y-6 animate-fade-in-left">
-                  <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight font-finder tracking-tighter">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tighter">
                     Coffee is
                     <span className="block" style={{ color: colors.blue }}>not just a drink</span>
                   </h2>
@@ -345,7 +369,7 @@ export default function OsheCoffee() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute bottom-0 left-0 p-4 w-full text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                      <h3 className="font-bold text-lg leading-tight tracking-tight font-finder">{item.name}</h3>
+                      <h3 className="font-bold text-lg leading-tight tracking-tight">{item.name}</h3>
                       <p className="text-xs text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-1">
                         {item.description}
                       </p>
@@ -456,7 +480,7 @@ export default function OsheCoffee() {
                 </div>
                 
                 <div className="bg-gray-50 rounded-2xl p-10 shadow-lg animate-fade-in-right">
-                  <h3 className="text-2xl font-bold mb-4 font-finder tracking-tight" style={{ color: colors.darkGreen }}>Find Us Here</h3>
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight" style={{ color: colors.darkGreen }}>Find Us Here</h3>
                   <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-xl border border-gray-300">
                     <iframe
                       src="https://maps.google.com/maps?q=Oshe+Coffee,+Jl.+Cempaka+1+No.16,+Banjarmasin&t=&z=16&ie=UTF8&iwloc=&output=embed"
@@ -618,11 +642,54 @@ export default function OsheCoffee() {
 
 
       <style jsx global>{`
-        /* Font definitions */
-        .font-finder { font-family: 'Finder', sans-serif; }
-        .font-bristol { font-family: 'Bristol', serif; }
-        .font-itc-cheltenham { font-family: 'ITC Cheltenham Condensed', serif; }
+      /* 1. Definisikan Font Kustom Anda */
+        @font-face {
+          font-family: 'ITC Cheltenham Condensed';
+          /* Path ke file font untuk teks isi (light) */
+          src: url('/fonts/ITC Cheltenham Std Light Condensed.otf') format('opentype');
+          font-weight: 300; /* 'light' weight */
+          font-style: normal;
+          font-display: swap;
+        }
 
+        @font-face {
+          font-family: 'ITC Cheltenham Condensed';
+          /* Path ke file font untuk heading (bold) */
+          src: url('/fonts/ITC Cheltenham Std Bold Condensed.otf') format('opentype');
+          font-weight: 700; /* 'bold' weight */
+          font-style: normal;
+          font-display: swap;
+        }
+
+        /* 2. Terapkan font ke seluruh body (sebagai font isi/default) */
+        body {
+          font-family: 'ITC Cheltenham Condensed', serif; /* Gunakan font baru, dengan fallback 'serif' */
+          font-weight: 300; /* Gunakan versi Light secara default */
+          letter-spacing: 0.1px;
+        }
+
+        /* 3. Terapkan font ke semua heading dan class .font-finder */
+        h1, h2, h4, h5, h6, .font-finder {
+          font-family: 'ITC Cheltenham Condensed', serif; /* Gunakan font baru */
+          font-weight: 700; /* Gunakan versi Bold */
+          letter-spacing: -5px;
+        }
+
+        h3 {
+          font-family: 'ITC Cheltenham Condensed', serif; /* Gunakan font baru */
+          font-weight: 700; /* Gunakan versi Bold */
+          letter-spacing: -1px;
+        }
+
+        /* Hapus atau timpa definisi font lama */
+        .font-bristol, .font-itc-cheltenham {
+          font-family: 'ITC Cheltenham Condensed', serif;
+        }
+
+        /* ================================================================== */
+        /* Sisa CSS (Animasi, dll.)                                         */
+        /* ================================================================== */
+        
         /* General animations */
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slide-down { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
